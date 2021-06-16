@@ -1,5 +1,5 @@
-/**
- * Author: David McHale <mchale.d@yahoo.com>
+/*
+ * Author: David McHale, <mchale.d@yahoo.com>
  *
  * Adapted to hlsl from glsl
  *
@@ -48,9 +48,6 @@ cbuffer SkyData : register(b1)
 struct VertexIn3
 {
     float4 PosL : POSITION;
-	float2 TexCoord : TEXCOORD0;
-	float3 normal : NORMAL;
-	float4 color : COLOR;
 };
 
 //Constants
@@ -59,10 +56,8 @@ const float whiteScale = 1.0748724675633854;
 
 struct PixelIn3
 {
-	//Std:
 	float4 position : SV_POSITION;
 	float4 vWorldPosition : POSITION;
-	float4 col : COLOR;
 
 	float3 vBetaR : TEXCOORD0;
 	float3 vBetaM : TEXCOORD1;
@@ -122,9 +117,9 @@ PixelIn3 VS(VertexIn3 input)
 	const float3 totalRayleigh = float3( 5.804542996261093E-6, 1.3562911419845635E-5, 3.0265902468824876E-5 );
 
 	PixelIn3 output;
-    output.position = mul(input.PosL, worldMatrix);
-    output.position = mul(output.position, viewMatrix);
-    output.position = mul(output.position, projectionMatrix);
+	output.position = mul(input.PosL, worldMatrix);
+	output.position = mul(output.position, viewMatrix);
+	output.position = mul(output.position, projectionMatrix);
 
 	output.vWorldPosition = mul(input.PosL, worldMatrix);
 
@@ -143,8 +138,6 @@ PixelIn3 VS(VertexIn3 input)
 
 	output.mieDirectionalG = mieDirectionalG;
 	output.exposure = exposure;
-
-	output.col = input.color;
 
 	return output;
 }
